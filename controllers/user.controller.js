@@ -159,7 +159,10 @@ const refresh = async (req, res) => {
             process.env.REFRESH_TOKEN_SECRET,
             (err, decoded) => {
                 if(err){
-                    return res.status(403);
+                    return res.status(403).json({
+                        success: false,
+                        message: "Invalid or expired refresh token.",
+                    });
                 }
 
                 const newAccessToken = generateAccessToken(user);
